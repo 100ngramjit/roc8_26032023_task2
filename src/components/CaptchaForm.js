@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { generateCaptcha } from "./CaptchaGenerator";
+import DarkModeToggle from "./DarkModeToggle";
 
 function SignInForm() {
   const [captcha, setCaptcha] = useState(generateCaptcha());
@@ -6,16 +8,6 @@ function SignInForm() {
   const [password, setPassword] = useState("");
   const [captchaValue, setCaptchaValue] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-
-  function generateCaptcha() {
-    const chars =
-      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let result = "";
-    for (let i = 0; i < 6; i++) {
-      result += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return result;
-  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -48,7 +40,7 @@ function SignInForm() {
       color: darkMode ? "#fff" : "#000",
       padding: "20px",
       borderRadius: "5px",
-      border: darkMode ? "2px solid #ccc" : "none",
+      border: "2px solid #ccc",
     },
     input: {
       flex: 1,
@@ -63,8 +55,6 @@ function SignInForm() {
       color: darkMode ? "#fff" : "#000",
     },
     captchaContainer: {
-      border: "1px solid #ccc",
-      borderRadius: "5px",
       padding: "10px",
       display: "flex",
       alignItems: "center",
@@ -72,6 +62,8 @@ function SignInForm() {
       color: darkMode ? "#fff" : "#000",
     },
     captchaText: {
+      border: "1px solid #ccc",
+      borderRadius: "5px",
       fontSize: "1.2rem",
       fontWeight: "bold",
       marginRight: "5px",
@@ -104,6 +96,13 @@ function SignInForm() {
 
   return (
     <form onSubmit={handleSubmit} style={styles.form}>
+      <DarkModeToggle
+        styles={styles}
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
+      <h2>Sign in with CAPTCHA</h2>
+
       <div style={{ display: "flex", alignItems: "center" }}>
         <label htmlFor="email" style={styles.label}>
           Email:
@@ -133,8 +132,9 @@ function SignInForm() {
         />
       </div>
       <div style={styles.captchaContainer}>
-        <div style={styles.captchaText}>{captcha}</div>
-        <div style={styles.captchaLine}></div>
+        <div>Enter the captcha :</div>
+        <div style={styles.captchaText}> {captcha}</div>
+
         <input
           type="text"
           name="captcha"
@@ -148,17 +148,6 @@ function SignInForm() {
         <button type="submit" style={styles.button}>
           Sign In
         </button>
-      </div>
-      <div style={styles.toggle}>
-        <label htmlFor="darkMode" style={styles.toggleLabel}>
-          Dark Mode:
-        </label>
-        <input
-          type="checkbox"
-          id="darkMode"
-          checked={darkMode}
-          onChange={toggleDarkMode}
-        />
       </div>
     </form>
   );
