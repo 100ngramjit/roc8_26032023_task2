@@ -20,7 +20,9 @@ function SignInForm() {
       setCaptcha(generateCaptcha());
       setCaptchaValue("");
     } else {
-      alert(`Email: ${enteredEmail}\nPassword: ${enteredPassword}`);
+      alert(
+        `Captcha Verified!!\nEmail: ${enteredEmail}\nPassword: ${enteredPassword}`
+      );
       setEmail("");
       setPassword("");
       setCaptcha(generateCaptcha());
@@ -67,6 +69,7 @@ function SignInForm() {
       fontSize: "1.2rem",
       fontWeight: "bold",
       marginRight: "5px",
+      textDecoration: "line-through",
     },
     captchaLine: {
       flex: 1,
