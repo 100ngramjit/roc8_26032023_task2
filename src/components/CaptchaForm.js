@@ -62,6 +62,7 @@ function SignInForm() {
       alignItems: "center",
       background: darkMode ? "#444" : "#fff",
       color: darkMode ? "#fff" : "#000",
+      overflow: "hidden",
     },
     captchaText: {
       border: "1px solid #ccc",
